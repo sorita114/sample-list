@@ -12,10 +12,10 @@ pnpm dev
 
 ## Module
 
-Next.js(https://nextjs.org/)  
-React Query(https://tanstack.com/query/latest)  
-Axios (https://axios-http.com/)  
-emotion (https://emotion.sh/docs/introduction)
+* Next.js(https://nextjs.org/)  
+* React Query(https://tanstack.com/query/latest)  
+* Axios (https://axios-http.com/)  
+* emotion (https://emotion.sh/docs/introduction)
 
 ## Structure  
 
