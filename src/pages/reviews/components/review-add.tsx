@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import type { FC, ChangeEvent, FormEvent } from 'react';
 import { css } from '@emotion/react';
-import type { OptionsT } from 'src/@type/options';
+import type { Options } from 'src/@type/options';
 import theme from '@styles/theme';
+import useReviews from '@hooks/use-reviews';
 
 const ReviewAdd:FC = () => {
-  const [ options, setOptions ] = useState<OptionsT[]>([]);
+  const [ options, setOptions ] = useState<Options[]>([]);
   const [ title, setTitle ] = useState<string>("");
   const [ comment, setComment ] = useState<string>("");
-  const [ grade, setGrade ] = useState<number>(5);
+  const [ score, setScore ] = useState<number>(5);
+  const { reviews, handleChangeList } = useReviews();
 
   const handleChangeTitle = (e:ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -22,17 +24,24 @@ const ReviewAdd:FC = () => {
     setComment(value);
   };
 
-  const handleChangeGrade = (e:ChangeEvent<HTMLSelectElement>) => {
+  const handleChangeScore = (e:ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.target;
 
-    setGrade(Number(value));
+    setScore(Number(value));
   };
 
   const handleSubmit = (e:FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    console.log("submit");
+    handleChangeList({
+      id: reviews ? reviews.length : 0,
+      title,
+      comment,
+      score
+    });
   };
+
+  const isDisabled = () => !title || !comment;
 
 
   useEffect(() => {
@@ -70,13 +79,13 @@ const ReviewAdd:FC = () => {
         </div>
         <div>
           <label htmlFor="movie-grade">별점</label>
-          <select name="grade" id="movie-grade" onChange={handleChangeGrade} value={grade}>
+          <select name="grade" id="movie-grade" onChange={handleChangeScore} value={score}>
             {options.map((option, index) => (
               <option value={option.value} key={index}>{option.name}</option>
             ))}
           </select>
         </div>
-        <button type="submit" onClick={handleSubmit}>
+        <button type="submit" onClick={handleSubmit} disabled={isDisabled()}>
           등록
         </button>
       </form>
@@ -110,9 +119,12 @@ const styled = css({
       outline: 'none',
       padding: '10px 0',
       borderRadius: theme.border.radius.large,
-      '&:hover, &:active': {
+      '&:hover:not(:disabled), &:active:not(:disabled)': {
         opacity: 0.7
-      }
+      },
+      '&:disabled': {
+        backgroundColor: '#ddd',
+      },
     }
   },
   'label': {

@@ -5,21 +5,21 @@ import { css } from '@emotion/react';
 import theme from '@styles/theme';
 
 type Props = {
-  onChangeQuery: (query: string) => void
-}
+  onChangeQuery: (query:string) => void
+};
 
-const ReviewSearch: FC<Props> = ({onChangeQuery}) => {
-  const [q, setQuery] = useState<string>('');
+const ReviewSearch:FC<Props> = ({ onChangeQuery }) => {
+  const [ query, setQuery ] = useState<string>("");
 
-  const handleChangeQuery = (e: ChangeEvent<HTMLInputElement>) => {
-    const {value} = e.target;
+  const handleChangeQuery = (e:ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
 
     setQuery(value);
   };
 
   useEffect(() => {
-    onChangeQuery(q);
-  }, [q, onChangeQuery]);
+    onChangeQuery(query);
+  }, [ query, onChangeQuery ]);
 
   return (
     <section css={styled}>
@@ -27,7 +27,7 @@ const ReviewSearch: FC<Props> = ({onChangeQuery}) => {
         <h1>리뷰 검색</h1>
       </header>
       <div>
-        <input type="text" value={q} onChange={handleChangeQuery} placeholder="영화 제목을 입력해 주세요."/>
+        <input type="text" value={query} onChange={handleChangeQuery} placeholder="영화 제목을 입력해 주세요." />
       </div>
     </section>
   );

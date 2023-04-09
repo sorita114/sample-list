@@ -1,4 +1,4 @@
-export type OptionsT = {
-  name: string,
-  value: number
-}
+export type Options = {
+  'name': string,
+  'value': number
+};

@@ -1,15 +1,16 @@
 import { useQuery } from 'react-query';
 import axios from 'axios';
-import { useCallback, useEffect, useState } from 'react';
-import type { ReviewsResultT } from 'src/@type/dto';
+import { useCallback, useContext, useEffect, useState } from 'react';
+import type { ReviewsResult } from 'src/@type/dto';
+import { GlobalReviewsContext } from '@pages/_app.page';
 
 const useReviews = () => {
   const [ loading, setLoading ] = useState<boolean>(false);
-  const [ list, setList ] = useState<ReviewsResultT[]>([]);
-  const [ reviews, setReviews ] = useState<ReviewsResultT[]>([]);
+  const [ list, setList ] = useState<ReviewsResult[]>([]);
   const [ isFetch, setIsFetch ] = useState<boolean>(false);
+  const { reviews, setReviews } = useContext(GlobalReviewsContext);
 
-  const { isLoading } = useQuery<{data: ReviewsResultT[]}>('/reivews', () => axios.get("/data.json"), {
+  const { isLoading } = useQuery<{data: ReviewsResult[]}>('/reivews', () => axios.get("/data.json"), {
     onSuccess: res => {
       const { data } = res;
       setList(data);
@@ -17,9 +18,17 @@ const useReviews = () => {
     enabled: isFetch
   });
 
-  const saveReviews = useCallback((data:ReviewsResultT[]) => {
+  const saveReviews = useCallback((data:ReviewsResult[]) => {
     localStorage.setItem('reviews', JSON.stringify(data));
   }, []);
+
+  const handleChangeList = (item:ReviewsResult) => {
+    setList(prev => [
+      ...prev,
+      item
+    ]
+    );
+  };
 
   useEffect(() => {
     if(localStorage){
@@ -27,7 +36,7 @@ const useReviews = () => {
 
       if(datas){
         setLoading(true);
-        setList(JSON.parse(datas) as ReviewsResultT[]);
+        setList(JSON.parse(datas) as ReviewsResult[]);
         setLoading(false);
       }else{
         setIsFetch(true);
@@ -43,14 +52,17 @@ const useReviews = () => {
     if(list.length){
       const sortedData = list
         .sort((prev, next) => next.score - prev.score)
-        .sort((prev, next) => next.title > prev.title ? -1 : 1);
+        .sort((prev, next) => next.title > prev.title ? -1 : 1)
+;
 
-      setReviews(sortedData);
+      if(setReviews){
+        setReviews(sortedData);
+      }
     }
   }, [ list, setReviews ]);
 
   useEffect(() => {
-    if(reviews.length){
+    if(reviews && reviews.length > 0){
       saveReviews(reviews);
     }
   }, [ reviews, saveReviews ]);
@@ -58,7 +70,8 @@ const useReviews = () => {
   return {
     loading,
     reviews,
-    saveReviews
+    saveReviews,
+    handleChangeList
   };
 };
 

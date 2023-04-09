@@ -1,4 +1,4 @@
-export type ReviewsResultT = {
+export type ReviewsResult = {
   'id': number,
   'title': string,
   'comment': string,

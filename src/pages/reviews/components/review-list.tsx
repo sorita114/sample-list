@@ -1,22 +1,23 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import type { FC } from 'react';
 import { css } from '@emotion/react';
-import type { ReviewsResultT } from 'src/@type/dto';
+import type { ReviewsResult } from 'src/@type/dto';
 import theme from '@styles/theme';
+import useReviews from '@hooks/use-reviews';
 
 type Props = {
-  'reviews': ReviewsResultT[],
   q?: string
 };
 
-const ReviewList:FC<Props> = ({ reviews, q }) => {
-  const [ list, setList ] = useState<ReviewsResultT[]>([]);
+const ReviewList:FC<Props> = ({ q }) => {
+  const { reviews } = useReviews();
+  const [ list, setList ] = useState<ReviewsResult[]>([]);
 
   const renderStar = (counts:number) => {
     const result = [];
 
     for(let i = 0; i < counts; i++){
-      result.push(<span key={i}/>);
+      result.push(<span key={i} />);
     }
 
     return result;

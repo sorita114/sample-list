@@ -22,11 +22,12 @@ pnpm dev
 ```
   public/
   src/
-    @components/
-    @hooks/
-    @layouts/
-    @styles/
-    @tyles/
+    @components/ -> common components
+    @hooks/ -> custom hooks
+    @layouts/ -> layout comonents
+    @styles/ -> emottion theme and css styles
+    @type/ -> type or interface
+    @utils/ -> common function
     pages
     _app.page.tsx
     _document.tsx
