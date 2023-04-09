@@ -2,7 +2,7 @@ const theme = {
   colors: {
     title: '#194e84',
     default: '#194e84',
-    white: '#fff',
+    white: '#fff'
   },
   border: {
     colors: {
@@ -17,7 +17,8 @@ const theme = {
   backgroundColor: {
     default: '#f5f5f5',
     review: '#194e84',
-    box: '#fcf67b'
+    box: '#fcf67b',
+    white: '#fff'
   },
   fontSize: {
     title: '18px',

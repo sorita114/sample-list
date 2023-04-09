@@ -22,5 +22,5 @@ export default function App({ Component, pageProps }: AppProps) {
         </DefaultLayout>
       </ThemeProvider>
     </QueryClientProvider>
-  )
-}
+  );
+};

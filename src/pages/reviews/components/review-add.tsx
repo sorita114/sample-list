@@ -1,42 +1,42 @@
-import React, { ChangeEvent, FormEvent, FormEventHandler, useEffect, useState } from 'react';
-import type { FC } from 'react';
-import { OptionsT } from 'src/@types/options';
+import React, { useEffect, useState } from 'react';
+import type { FC, ChangeEvent, FormEvent } from 'react';
 import { css } from '@emotion/react';
+import type { OptionsT } from 'src/@type/options';
 import theme from '@styles/theme';
 
-const ReviewAdd: FC = () => {
-  const [options, setOptions] = useState<OptionsT[]>([])
-  const [title, setTitle] = useState<string>('')
-  const [comment, setComment] = useState<string>('')
-  const [grade, setGrade] = useState<number>(5)
+const ReviewAdd:FC = () => {
+  const [ options, setOptions ] = useState<OptionsT[]>([]);
+  const [ title, setTitle ] = useState<string>("");
+  const [ comment, setComment ] = useState<string>("");
+  const [ grade, setGrade ] = useState<number>(5);
 
-  const handleChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
-    const {value} = e.target;
+  const handleChangeTitle = (e:ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
 
-    setTitle(value)
-  }
+    setTitle(value);
+  };
 
-  const handleChangeComment = (e: ChangeEvent<HTMLInputElement>) => {
-    const {value} = e.target;
+  const handleChangeComment = (e:ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
 
-    setComment(value)
-  }
+    setComment(value);
+  };
 
-  const handleChangeGrade = (e: ChangeEvent<HTMLSelectElement>) => {
-    const {value} = e.target;
+  const handleChangeGrade = (e:ChangeEvent<HTMLSelectElement>) => {
+    const { value } = e.target;
 
-    setGrade(Number(value))
-  }
+    setGrade(Number(value));
+  };
 
-  const handleSubmit = (e: FormEvent<HTMLButtonElement>) => {
+  const handleSubmit = (e:FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    console.log('submit')
-  }
+    console.log("submit");
+  };
 
 
   useEffect(() => {
-    setOptions([{
+    setOptions([ {
       name: '5점',
       value: 5
     }, {
@@ -51,7 +51,7 @@ const ReviewAdd: FC = () => {
     }, {
       name: '1점',
       value: 1
-    }])
+    }]);
   }, []);
 
   return (
@@ -59,14 +59,14 @@ const ReviewAdd: FC = () => {
       <header>
         <h1>신규 리뷰 등록</h1>
       </header>
-      <form>
+      <form onSubmit={(e) => e.preventDefault}>
         <div>
           <label htmlFor="movie-title">영화 제목</label>
-          <input type="text" placeholder="제목을 입력해 주세요." id="movie-title" value={title} onChange={handleChangeTitle}/>
+          <input type="text" placeholder="제목을 입력해 주세요." id="movie-title" value={title} onChange={handleChangeTitle} />
         </div>
         <div>
           <label htmlFor="movie-comment">한줄평</label>
-          <input type="text" placeholder="내용을 입력해 주세요." id="movie-comment" value={comment} onChange={handleChangeComment}/>
+          <input type="text" placeholder="내용을 입력해 주세요." id="movie-comment" value={comment} onChange={handleChangeComment} />
         </div>
         <div>
           <label htmlFor="movie-grade">별점</label>
@@ -76,16 +76,17 @@ const ReviewAdd: FC = () => {
             ))}
           </select>
         </div>
-        <button type="submit" onSubmit={handleSubmit}>
+        <button type="submit" onClick={handleSubmit}>
           등록
         </button>
       </form>
     </section>
-  )
-}
+  );
+};
 
 const styled = css({
   marginBottom: 20,
+  padding: 30,
   'form': {
     '> div': {
       display: 'flex',
@@ -93,16 +94,30 @@ const styled = css({
       gap: 5,
       marginBottom: 10,
       'input, select': {
-        height: 40,
+        height: 30,
         padding: '5px 10px',
         borderRadius: theme.border.radius.default,
-        border: `1px solid ${theme.border.colors.default}`,
+        border: `1px solid ${theme.border.colors.default}`
+      }
+    },
+    'button[type="submit"]': {
+      textAlign:'center',
+      width: '100%',
+      backgroundColor: theme.backgroundColor.review,
+      color: theme.colors.white,
+      fontSize: theme.fontSize.large,
+      border: 0,
+      outline: 'none',
+      padding: '10px 0',
+      borderRadius: theme.border.radius.large,
+      '&:hover, &:active': {
+        opacity: 0.7
       }
     }
   },
   'label': {
-    color: theme.colors.title,
+    color: theme.colors.title
   }
-})
+});
 
-export default ReviewAdd
+export default ReviewAdd;
