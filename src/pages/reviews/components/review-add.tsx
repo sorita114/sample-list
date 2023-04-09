@@ -5,11 +5,13 @@ import type { Options } from 'src/@type/options';
 import theme from '@styles/theme';
 import useReviews from '@hooks/use-reviews';
 
+const DEFAULT_SCORE = 5;
+
 const ReviewAdd:FC = () => {
   const [ options, setOptions ] = useState<Options[]>([]);
   const [ title, setTitle ] = useState<string>("");
   const [ comment, setComment ] = useState<string>("");
-  const [ score, setScore ] = useState<number>(5);
+  const [ score, setScore ] = useState<number>(DEFAULT_SCORE);
   const { reviews, handleChangeList } = useReviews();
 
   const handleChangeTitle = (e:ChangeEvent<HTMLInputElement>) => {
@@ -39,6 +41,10 @@ const ReviewAdd:FC = () => {
       comment,
       score
     });
+
+    setTitle("");
+    setComment("");
+    setScore(DEFAULT_SCORE);
   };
 
   const isDisabled = () => !title || !comment;
