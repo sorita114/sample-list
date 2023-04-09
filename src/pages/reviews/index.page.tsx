@@ -1,16 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import type { FC } from 'react'
 import ReviewList from './components/review-list'
 import ReviewAdd from './components/review-add'
 import ReviewSearch from './components/review-search'
 import { css } from '@emotion/react'
+import useReviews from '@hooks/use-reviews'
 
 const Reviews: FC = () => {
+  const {reviews, loading} = useReviews();
+
   return (
     <section css={styled}>
       <ReviewAdd />
       <ReviewSearch />
-      <ReviewList />
+      <ReviewList reviews={reviews}/>
     </section>
   )
 }

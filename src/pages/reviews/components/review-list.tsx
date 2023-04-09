@@ -1,7 +1,12 @@
+import { ReviewsResultT } from '@types/dto';
 import React from 'react';
 import type { FC } from 'react'
 
-const ReviewList: FC = () => {
+type Props = {
+  reviews: ReviewsResultT[]
+}
+
+const ReviewList: FC<Props> = ({reviews}) => {
   return (
     <section>
       <header>
