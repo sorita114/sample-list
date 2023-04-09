@@ -23,6 +23,10 @@ const theme = {
     title: '18px',
     default: '14px',
     large: '15px'
+  },
+  fontWeight: {
+    bold: 700,
+    light: 400
   }
 };
 

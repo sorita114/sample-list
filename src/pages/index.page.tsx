@@ -1,11 +1,12 @@
 import React from 'react';
 import type { FC } from 'react'
-import DefaultLayout from '@layouts/default';
+import Reviews from '@pages/reviews/index.page';
 
 const Home: FC = () => {
   return (
-    <main>
-    </main>
+    <section>
+      <Reviews />
+    </section>
   )
 }
 
